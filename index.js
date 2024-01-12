@@ -1,13 +1,14 @@
 // server/index.js
 const express = require("express");
 const cors = require("cors");
+require('dotenv').config();
 const connectDB = require("./utils/db");
 const LaborRoutes = require("./routes/labor");
 const EmployerRoutes = require("./routes/employer");
 const JobRoutes=require("./routes/job")
 const app = express();
 const cookieParser = require('cookie-parser');
-const PORT = process.env.PORT || 5500;
+const PORT = process.env.PORT
 const LaborAuthRoutes=require("./auth/labor")
 const EmployerAuthRoutes=require("./auth/employer")
 // Middleware
