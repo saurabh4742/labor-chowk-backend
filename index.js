@@ -32,7 +32,7 @@ app.use("/api/auth/employer", EmployerAuthRoutes);
 app.use("/api/vacancy", JobRoutes);
 
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to the backend!" });
+  res.status(200).json('Welcome, Its An Api');
 });
 
 
