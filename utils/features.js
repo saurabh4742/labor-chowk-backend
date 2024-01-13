@@ -9,7 +9,7 @@ const cookieSetterLabor = (res, token, set) => {
     serialize("LaborToken", set ? token : "", {
       path: "/",
       httpOnly: true,
-      maxAge: set ? 15 * 24 * 60 * 60 : 0, // Change milliseconds to seconds
+      maxAge: set ? 10 * 24 * 60 * 60 : 0, // Change milliseconds to seconds
       sameSite: "None", // Set SameSite attribute
       secure: true, // Set secure attribute for HTTPS
     })
@@ -21,7 +21,7 @@ const cookieSetterEmployer = (res, token, set) => {
     serialize("EmployerToken", set ? token : "", {
       path: "/",
       httpOnly: true,
-      maxAge: set ? 15 * 24 * 60 * 60 : 0, // Change milliseconds to seconds
+      maxAge: set ? 10 * 24 * 60 * 60 : 0, // Change milliseconds to seconds
       sameSite: "None", // Set SameSite attribute
       secure: true, // Set secure attribute for HTTPS
     })

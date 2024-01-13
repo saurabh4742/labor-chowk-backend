@@ -27,7 +27,7 @@ router.get('/profile', async (req, res)=>{
 //Logout
 router.get('/logout', async (req, res)=>{
   try{
-      cookieSetterEmployer(res,null,false)
+      cookieSetterEmployer(res,"null",false)
       res.status(200).json({succes:true,message:"Loged out"})
   }
   catch (error) {
