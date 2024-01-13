@@ -14,7 +14,7 @@ const EmployerAuthRoutes=require("./auth/employer")
 // Middleware
 app.use(cors({
   credentials: true, 
-  origin: "https://labour-chowk.vercel.app/"
+  origin: "https://labour-chowk.vercel.app"
 }));
 app.use(express.json());
 app.use(cookieParser());
