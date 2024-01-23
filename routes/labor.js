@@ -66,7 +66,7 @@ router.get("/phone/:number", async (req, res) => {
 });
 
 // Modify Labor by id
-app.put("/modify/:id", upload.single("image"), async (req, res) => {
+router.put("/modify/:id", upload.single("image"), async (req, res) => {
   try {
     const { name, address, pincode, availability, experience } = req.body;
     const laborId = req.params.id;
