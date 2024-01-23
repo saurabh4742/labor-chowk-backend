@@ -102,7 +102,7 @@ router.put("/modify/:id", upload.single("image"), async (req, res) => {
       });
 
       // Save the image URL in the Labor details
-      existingLabor.imageUrl = imageUrl;
+      existingLabor.profileImage=imageUrl;
     }
 
     // Save the updated Labor to the database
