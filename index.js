@@ -20,7 +20,6 @@ app.use(express.json());
 app.use(cookieParser());
 connectDB();
 
-
 // Worker routes
 app.use("/api/labor", LaborRoutes);
 //Employer Routes

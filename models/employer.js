@@ -8,6 +8,7 @@ const employerSchema = new mongoose.Schema({
   pincode:{type: String, required: true},
   phoneNumber: {type: String, required: true,unique:true},
   address: {type: String, required: true},
+  profileImage: { type: String }
 });
 
 const Employer = mongoose.model('Employer', employerSchema);

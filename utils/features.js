@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const mongoose = require('mongoose');
 const { serialize } = require("cookie");
 require("dotenv").config();
 const Labor = require("../models/labor");
@@ -72,7 +73,36 @@ const checkAuthEmployer = async (req) => {
   }
 };
 
+const updateDocumentsLabor = async () => {
+  try {
+    // Update all documents with the new field
+    const result = await Labor.updateMany(
+      { profileImage: { $exists: false } }, // Update only those documents that don't have the new field
+      { $set: { profileImage: '' } } // Set a default image URL or update according to your requirement
+    );
+    console.log(`${result.nModified} documents updated Labor`);
+  } catch (error) {
+    console.error('Error updating documents:', error);
+  } finally {
+    mongoose.disconnect();
+  }
+};
+const updateDocumentsEmployer = async () => {
+  try {
+    // Update all documents with the new field
+    const result = await Employer.updateMany(
+      { profileImage: { $exists: false } }, // Update only those documents that don't have the new field
+      { $set: { profileImage: '' } } // Set a default image URL or update according to your requirement
+    );
+    console.log(`${result.nModified} documents updated Employer`);
+  } catch (error) {
+    console.error('Error updating documents:', error);
+  }
+};
+
 module.exports = {
+  updateDocumentsEmployer,
+  updateDocumentsLabor,
   cookieSetterLabor,
   generateToken,
   cookieSetterEmployer,

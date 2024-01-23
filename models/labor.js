@@ -10,7 +10,8 @@ const laborSchema = new mongoose.Schema({
   experience:{
     type: String, required: true
   },
-  availability: { type: Boolean } // Corrected spelling
+  availability: { type: Boolean },
+  profileImage: { type: String } // Corrected spelling
 });
 
 const Labor = mongoose.model('Labor', laborSchema);
