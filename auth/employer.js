@@ -101,6 +101,7 @@ router.post("/register", async (req, res) => {
         phoneNumber,
         pincode,
         address,
+        profileImage:""
       });
   
       // Save the Employer to the database
