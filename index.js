@@ -3,14 +3,15 @@ const express = require("express");
 const cors = require("cors");
 require('dotenv').config();
 const connectDB = require("./utils/db");
-const LaborRoutes = require("./routes/labor");
-const EmployerRoutes = require("./routes/employer");
+const laborRouter = require("./routes/labor");
+const employerRouter = require("./routes/employer");
 const JobRoutes=require("./routes/job")
 const app = express();
 const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT
 const LaborAuthRoutes=require("./auth/labor")
 const EmployerAuthRoutes=require("./auth/employer")
+const admin = require("./utils/firebaseInit");
 // Middleware
 app.use(cors({
   origin: 'https://labour-chowk.vercel.app',
@@ -21,9 +22,9 @@ app.use(cookieParser());
 connectDB();
 
 // Worker routes
-app.use("/api/labor", LaborRoutes);
+app.use("/api/labor", laborRouter(admin));
 //Employer Routes
-app.use("/api/employer", EmployerRoutes);
+app.use("/api/employer", employerRouter(admin));
 // Routes
 app.use("/api/auth/labor", LaborAuthRoutes);
 // Worker routes
