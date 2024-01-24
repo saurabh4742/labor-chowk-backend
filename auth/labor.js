@@ -102,7 +102,8 @@ router.post('/login', async (req, res) => {
         address,
         skills,
         experience,
-        availability: true // Corrected spelling
+        availability: true ,
+        profileImage:""
       });
       const token=generateToken(labor._id)
       cookieSetterLabor(res,token,true)
