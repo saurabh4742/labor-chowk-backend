@@ -55,16 +55,16 @@ router.put("/modify/:id", upload.single("image"), async (req, res) => {
     const EmployerId = req.params.id;
 
     // Check if the Employer with the given ID exists
-    const employer = await Employer.findById(EmployerId);
+    const existingEmployer = await Employer.findById(EmployerId);
 
-    if (!employer) {
+    if (!existingEmployer) {
       return res.status(404).json({ error: "Employer not found." });
     }
 
     // Update Employer details
-    employer.name = name;
-    employer.address=address;
-    employer.pincode=pincode;
+    existingEmployer.name = name;
+    existingEmployer.address=address;
+    existingEmployer.pincode=pincode;
 
     if (req.file) {
       const originalname = req.file.originalname;
@@ -81,11 +81,11 @@ router.put("/modify/:id", upload.single("image"), async (req, res) => {
       });
 
       // Save the image URL in the Employer details
-      employer.profileImage=imageUrl;
+      existingEmployer.profileImage=imageUrl;
     }
 
     // Save the updated employer to the database
-    await employer.save();
+    await existingEmployer.save();
 
     res.status(200).json({ message: "Employer modified successfully." });
   } catch (error) {
