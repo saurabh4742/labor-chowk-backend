@@ -126,6 +126,25 @@ router.get("/id/:id", async (req, res) => {
   }
 });
 
+router.get("/my", async (req, res) => {
+  try {
+    const user = await checkAuthEmployer(req);
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const jobs = await Job.find({ employer: user._id });
+
+    if (!jobs || jobs.length === 0) {
+      return res.status(400).json({ error: "No jobs for this employer" });
+    }
+
+    res.status(200).json(jobs);
+  } catch (error) {
+    console.error("Error fetching jobs for the employer:", error);
+    res.status(500).json({ error: "Failed to fetch jobs" });
+  }
+});
+
 router.get("/all", async (req, res) => {
   try {
     // Fetch all jobs from the database
