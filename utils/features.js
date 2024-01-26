@@ -4,6 +4,7 @@ const { serialize } = require("cookie");
 require("dotenv").config();
 const Labor = require("../models/labor");
 const Employer = require("../models/employer");
+const Job=require("../models/job")
 const cookieSetterLabor = (res, token, set) => {
   res.setHeader(
     "Set-Cookie",
@@ -99,8 +100,20 @@ const updateDocumentsEmployer = async () => {
     console.error('Error updating documents:', error);
   }
 };
-
+const updateDocumentsJobs = async () => {
+  try {
+    // Update all documents with the new field
+    const result = await Job.updateMany(
+      { createdAt: { $exists: false } }, // Update only those documents that don't have the new field
+      { $set: { createdAt: new Date() } } // Set the default creation date or update according to your requirement
+    );
+    console.log(`${result.nModified} documents updated in Job collection`);
+  } catch (error) {
+    console.error('Error updating documents:', error);
+  } 
+};
 module.exports = {
+  updateDocumentsJobs,
   updateDocumentsEmployer,
   updateDocumentsLabor,
   cookieSetterLabor,

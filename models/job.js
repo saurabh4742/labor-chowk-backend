@@ -25,8 +25,11 @@ const jobSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Employer',
     required:true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now  
   }
-  // Add more fields as needed
 });
 
 const Job = mongoose.model('Job', jobSchema);
