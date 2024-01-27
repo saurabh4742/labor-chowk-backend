@@ -12,6 +12,7 @@ const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT
 const LaborAuthRoutes=require("./auth/labor")
 const EmployerAuthRoutes=require("./auth/employer")
+const sahayakAuthRouter=require("./auth/sahayak")
 const admin = require("./utils/firebaseInit");
 // Middleware
 app.use(cors({
@@ -31,6 +32,7 @@ app.use("/api/sahayak",sahayakRouter(admin))
 app.use("/api/auth/labor", LaborAuthRoutes);
 // Worker routes
 app.use("/api/auth/employer", EmployerAuthRoutes);
+app.use("/api/auth/sahayak",sahayakAuthRouter)
 app.use("/api/vacancy", JobRoutes);
 
 app.get("/", (req, res) => {
