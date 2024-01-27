@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { serialize } = require("cookie");
 require("dotenv").config();
 const Labor = require("../models/labor");
+const Sahayak=require("../models/sahayak")
 const Employer = require("../models/employer");
 const Job=require("../models/job")
 const cookieSetterLabor = (res, token, set) => {
@@ -21,6 +22,18 @@ const cookieSetterEmployer = (res, token, set) => {
   res.setHeader(
     "Set-Cookie",
     serialize("EmployerToken", set ? token : "", {
+      path: "/",
+      httpOnly: true,
+      maxAge: set ? 10 * 24 * 60 * 60 : 0, // Change milliseconds to seconds
+      sameSite: "None", // Set SameSite attribute
+      secure: true, // Set secure attribute for HTTPS
+    })
+  );
+};
+const cookieSetterSahayak = (res, token, set) => {
+  res.setHeader(
+    "Set-Cookie",
+    serialize("SahayakToken", set ? token : "", {
       path: "/",
       httpOnly: true,
       maxAge: set ? 10 * 24 * 60 * 60 : 0, // Change milliseconds to seconds
@@ -74,6 +87,26 @@ const checkAuthEmployer = async (req) => {
   }
 };
 
+const checkAuthSahayak = async (req) => {
+  const cookie = req.headers.cookie;
+  if (!cookie) return null;
+
+  const tokens = cookie.split(";").map((c) => c.trim().split("="));
+
+  const sahayakToken = tokens.find(([name]) => name === "SahayakToken");
+  if (!sahayakToken) return null;
+
+  const token = employerToken[1];
+  if (!token) return null;
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return await Sahayak.findById(decoded._id);
+  } catch (error) {
+    return null;
+  }
+};
+
 const updateDocumentsLabor = async () => {
   try {
     // Update all documents with the new field
@@ -113,6 +146,8 @@ const updateDocumentsJobs = async () => {
   } 
 };
 module.exports = {
+  checkAuthSahayak,
+  cookieSetterSahayak,
   updateDocumentsJobs,
   updateDocumentsEmployer,
   updateDocumentsLabor,

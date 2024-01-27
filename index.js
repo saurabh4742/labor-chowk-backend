@@ -5,6 +5,7 @@ require('dotenv').config();
 const connectDB = require("./utils/db");
 const laborRouter = require("./routes/labor");
 const employerRouter = require("./routes/employer");
+const sahayakRouter = require("./routes/sahayak");
 const JobRoutes=require("./routes/job")
 const app = express();
 const cookieParser = require('cookie-parser');
@@ -25,6 +26,7 @@ connectDB();
 app.use("/api/labor", laborRouter(admin));
 //Employer Routes
 app.use("/api/employer", employerRouter(admin));
+app.use("/api/sahayak",sahayakRouter(admin))
 // Routes
 app.use("/api/auth/labor", LaborAuthRoutes);
 // Worker routes
