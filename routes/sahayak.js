@@ -28,7 +28,7 @@ function sahayakRouter(admin) {
       // Check if the Sahayak with the given ID exists
       const sahayak = await Sahayak.findById(SahayakId);
 
-      if (!Sahayak) {
+      if (!sahayak) {
         return res.status(404).json({ error: "Sahayak not found." });
       }
 
