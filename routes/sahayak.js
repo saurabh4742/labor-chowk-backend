@@ -1,6 +1,6 @@
 // server/routes/Sahayak.js
 const express = require("express");
-const Sahayak = require("../models/sahayak.js");
+const Sahayak=require("../models/sahayak.js")
 const router = express.Router();
 const multer = require("multer");
 const getFileNameFromUrl = require("../utils/getFileName.js");
